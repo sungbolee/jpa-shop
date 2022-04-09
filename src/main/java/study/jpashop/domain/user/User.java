@@ -20,4 +20,8 @@ public class User {
 
     @Embedded
     private Address address;
+
+    public User(String name) {
+        this.name = name;
+    }
 }
