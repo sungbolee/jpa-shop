@@ -28,10 +28,8 @@ public class OrderService {
     public Long order(Long userId, Long itemId, int count) {
 
         //엔티티 조회
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalStateException("사용자 정보가 없습니다."));
-        Item item = itemRepository.findById(itemId)
-                .orElseThrow(() -> new IllegalStateException("상품 정보가 없습니다."));
+        User user = userRepository.getById(userId);
+        Item item = itemRepository.getById(itemId);
 
         //배송정보 생성
         Delivery delivery = new Delivery();
@@ -55,8 +53,7 @@ public class OrderService {
     @Transactional
     public void cancelOrder(Long orderId) {
         //주문 엔티티 조회
-        Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new IllegalStateException("주문 정보가 없습니다."));
+        Order order = orderRepository.getById(orderId);
         //주문 취소
         order.cancel();
     }

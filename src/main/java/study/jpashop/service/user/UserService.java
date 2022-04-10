@@ -42,8 +42,7 @@ public class UserService {
      * 회원 단건 조회
      */
     public User findOne(Long userId) {
-        return userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalStateException("사용자 정보가 없습니다."));
+        return userRepository.getById(userId);
     }
 
     /**
@@ -51,8 +50,7 @@ public class UserService {
      */
     @Transactional
     public void update(Long id, String name) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalStateException("사용자 정보가 없습니다."));
+        User user = userRepository.getById(id);
         user.setName(name);
     }
 }
