@@ -25,8 +25,8 @@ class UserServiceTest {
         Long savedId = userService.join(user);
 
         //then
-        User findMember = userService.findOne(savedId);
-        assertThat(user.getName()).isEqualTo(findMember.getName());
+        User findUser = userService.findOne(savedId);
+        assertThat(user.getName()).isEqualTo(findUser.getName());
     }
 
     @Test

@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.tomcat.jni.Address;
+import study.jpashop.domain.valuetype.Address;
 
 import javax.persistence.*;
 

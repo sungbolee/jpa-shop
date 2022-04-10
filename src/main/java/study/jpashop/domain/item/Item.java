@@ -3,13 +3,15 @@ package study.jpashop.domain.item;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import study.jpashop.exception.NotEnoughStockException;
 
 import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype")
-@Getter
+@Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class Item {
 
@@ -34,9 +36,9 @@ public abstract class Item {
      */
     public void removeStock(int quantity) {
         int restStock = this.stockQuantity - quantity;
-//        if (restStock < 0) {
-//            throw new NotEnoughStockException("need more stock");
-//        }
+        if (restStock < 0) {
+            throw new NotEnoughStockException("need more stock");
+        }
         this.stockQuantity = restStock;
     }
 }

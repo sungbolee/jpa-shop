@@ -14,7 +14,7 @@ import static javax.persistence.FetchType.*;
 
 @Entity
 @Getter @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class Delivery {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
