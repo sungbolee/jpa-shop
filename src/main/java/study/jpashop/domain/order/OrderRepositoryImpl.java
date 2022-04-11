@@ -2,9 +2,8 @@ package study.jpashop.domain.order;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
-import study.jpashop.api.order.OrderSearchCondition;
+import study.jpashop.api.v1.order.OrderSearchCondition;
 import study.jpashop.domain.code.OrderStatus;
 
 import javax.persistence.EntityManager;
@@ -23,7 +22,7 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
     }
 
     @Override
-    public List<Order> search(OrderSearchCondition condition, Pageable pageable) {
+    public List<Order> search(OrderSearchCondition condition) {
         return queryFactory
                 .select(order)
                 .from(order)

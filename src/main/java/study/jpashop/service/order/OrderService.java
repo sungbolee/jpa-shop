@@ -3,6 +3,7 @@ package study.jpashop.service.order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import study.jpashop.api.v1.order.OrderSearchCondition;
 import study.jpashop.domain.delivery.Delivery;
 import study.jpashop.domain.item.Item;
 import study.jpashop.domain.item.ItemRepository;
@@ -11,6 +12,8 @@ import study.jpashop.domain.order.OrderRepository;
 import study.jpashop.domain.orderitem.OrderItem;
 import study.jpashop.domain.user.User;
 import study.jpashop.domain.user.UserRepository;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -56,5 +59,10 @@ public class OrderService {
         Order order = orderRepository.getById(orderId);
         //주문 취소
         order.cancel();
+    }
+
+    //검색
+    public List<Order> findOrders(OrderSearchCondition condition) {
+        return orderRepository.search(condition);
     }
 }

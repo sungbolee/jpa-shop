@@ -1,4 +1,4 @@
-package study.jpashop.api.order;
+package study.jpashop.api.v1.order;
 
 import lombok.Data;
 import study.jpashop.domain.code.OrderStatus;
