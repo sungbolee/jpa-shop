@@ -1,4 +1,4 @@
-package study.jpashop.api.v1.user;
+package study.jpashop.web.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

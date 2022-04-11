@@ -1,9 +1,10 @@
-package study.jpashop.api.v1.order;
+package study.jpashop.web.order;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import study.jpashop.api.v1.order.OrderSearchCondition;
 import study.jpashop.domain.item.Item;
 import study.jpashop.domain.order.Order;
 import study.jpashop.domain.user.User;

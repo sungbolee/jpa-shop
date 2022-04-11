@@ -1,9 +1,10 @@
-package study.jpashop.api.v1.item;
+package study.jpashop.web.item;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import study.jpashop.api.v1.item.ItemDto;
 import study.jpashop.domain.item.Book;
 import study.jpashop.domain.item.Item;
 import study.jpashop.domain.item.ItemRepository;

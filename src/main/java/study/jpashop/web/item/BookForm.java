@@ -1,4 +1,4 @@
-package study.jpashop.api.v1.item;
+package study.jpashop.web.item;
 
 import lombok.Getter;
 import lombok.Setter;

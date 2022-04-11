@@ -1,4 +1,4 @@
-package study.jpashop.api.v1.home;
+package study.jpashop.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
