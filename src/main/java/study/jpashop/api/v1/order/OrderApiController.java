@@ -17,8 +17,7 @@ public class OrderApiController {
     private final OrderRepository orderRepository;
 
     @GetMapping
-    public Page<OrderDto> orders(@PageableDefault(size = 5) Pageable pageable) {
-        return orderRepository.findAllOrder(pageable)
-                .map(OrderDto::new);
+    public Page<OrderDto> search(OrderSearchCondition condition, @PageableDefault(size = 5) Pageable pageable) {
+        return orderRepository.search(condition, pageable);
     }
 }

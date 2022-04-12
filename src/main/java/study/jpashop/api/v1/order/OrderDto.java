@@ -1,5 +1,6 @@
 package study.jpashop.api.v1.order;
 
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import study.jpashop.api.v1.orderitem.OrderItemDto;
 import study.jpashop.domain.code.OrderStatus;
@@ -21,6 +22,7 @@ public class OrderDto {
     private Address address;
     private List<OrderItemDto> orderItems;
 
+    @QueryProjection
     public OrderDto(Order order) {
         this.orderId = order.getId();
         this.name = order.getUser().getName();

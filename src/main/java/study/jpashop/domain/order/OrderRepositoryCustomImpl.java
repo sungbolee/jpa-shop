@@ -7,7 +7,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.util.StringUtils;
+import study.jpashop.api.v1.order.OrderDto;
 import study.jpashop.api.v1.order.OrderSearchCondition;
+import study.jpashop.api.v1.order.QOrderDto;
 import study.jpashop.domain.code.OrderStatus;
 
 import javax.persistence.EntityManager;
@@ -27,24 +29,14 @@ public class OrderRepositoryCustomImpl implements OrderRepositoryCustom {
     }
 
     @Override
-    public List<Order> search(OrderSearchCondition condition) {
-        return queryFactory
-                .select(order)
+    public Page<OrderDto> search(OrderSearchCondition condition, Pageable pageable) {
+        List<OrderDto> content = queryFactory
+                .select(new QOrderDto(order))
                 .from(order)
-                .join(order.user, user)
+                .leftJoin(order.user, user).fetchJoin()
+                .leftJoin(order.delivery, delivery).fetchJoin()
                 .where(statusEq(condition.getOrderStatus()),
                         nameLike(condition.getUserName()))
-                .limit(1000)
-                .fetch();
-    }
-
-    @Override
-    public Page<Order> findAllOrder(Pageable pageable) {
-        List<Order> content = queryFactory
-                .select(order)
-                .from(order)
-                .join(order.user, user).fetchJoin()
-                .join(order.delivery, delivery).fetchJoin()
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
