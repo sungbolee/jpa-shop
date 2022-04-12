@@ -14,11 +14,11 @@ import static study.jpashop.domain.delivery.QDelivery.delivery;
 import static study.jpashop.domain.order.QOrder.order;
 import static study.jpashop.domain.user.QUser.user;
 
-public class OrderRepositoryImpl implements OrderRepositoryCustom {
+public class OrderRepositoryCustomImpl implements OrderRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
 
-    public OrderRepositoryImpl(EntityManager em) {
+    public OrderRepositoryCustomImpl(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
     }
 

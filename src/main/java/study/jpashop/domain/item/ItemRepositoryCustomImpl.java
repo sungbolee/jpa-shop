@@ -8,11 +8,11 @@ import javax.persistence.EntityManager;
 
 import static study.jpashop.domain.item.QBook.book;
 
-public class ItemRepositoryImpl implements ItemRepositoryCustom {
+public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
 
-    public ItemRepositoryImpl(EntityManager em) {
+    public ItemRepositoryCustomImpl(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
