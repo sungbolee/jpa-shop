@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 
 import java.util.List;
 
+import static study.jpashop.domain.delivery.QDelivery.delivery;
 import static study.jpashop.domain.order.QOrder.order;
 import static study.jpashop.domain.user.QUser.user;
 
@@ -30,6 +31,18 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
                 .where(statusEq(condition.getOrderStatus()),
                         nameLike(condition.getUserName()))
                 .limit(1000)
+                .fetch();
+    }
+
+    @Override
+    public List<Order> findAllOrder(int offset, int limit) {
+        return queryFactory
+                .select(order)
+                .from(order)
+                .join(order.user, user).fetchJoin()
+                .join(order.delivery, delivery).fetchJoin()
+                .offset(offset)
+                .limit(limit)
                 .fetch();
     }
 

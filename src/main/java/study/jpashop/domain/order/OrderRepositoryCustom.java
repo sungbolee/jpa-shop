@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface OrderRepositoryCustom {
     List<Order> search(OrderSearchCondition condition);
+    List<Order> findAllOrder(int offset, int limit);
 }
