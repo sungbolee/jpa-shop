@@ -60,4 +60,9 @@ public class OrderService {
         //주문 취소
         order.cancel();
     }
+
+    //검색
+    public List<Order> findOrders(OrderSearchCondition condition) {
+        return orderRepository.search(condition);
+    }
 }

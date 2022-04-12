@@ -10,6 +10,8 @@ import study.jpashop.api.v1.order.QOrderDto;
 import study.jpashop.domain.Querydsl4RepositorySupport;
 import study.jpashop.domain.code.OrderStatus;
 
+import java.util.List;
+
 import static study.jpashop.domain.delivery.QDelivery.delivery;
 import static study.jpashop.domain.order.QOrder.order;
 import static study.jpashop.domain.user.QUser.user;
@@ -18,6 +20,16 @@ public class OrderRepositoryCustomImpl extends Querydsl4RepositorySupport implem
 
     public OrderRepositoryCustomImpl() {
         super(Order.class);
+    }
+
+    @Override
+    public List<Order> search(OrderSearchCondition condition) {
+        return selectFrom(order)
+                .join(order.user, user)
+                .where(statusEq(condition.getOrderStatus()),
+                        nameLike(condition.getUserName()))
+                .limit(1000)
+                .fetch();
     }
 
     @Override
