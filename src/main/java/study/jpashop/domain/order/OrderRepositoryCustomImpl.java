@@ -1,7 +1,11 @@
 package study.jpashop.domain.order;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.util.StringUtils;
 import study.jpashop.api.v1.order.OrderSearchCondition;
 import study.jpashop.domain.code.OrderStatus;
@@ -35,15 +39,21 @@ public class OrderRepositoryCustomImpl implements OrderRepositoryCustom {
     }
 
     @Override
-    public List<Order> findAllOrder(int offset, int limit) {
-        return queryFactory
+    public Page<Order> findAllOrder(Pageable pageable) {
+        List<Order> content = queryFactory
                 .select(order)
                 .from(order)
                 .join(order.user, user).fetchJoin()
                 .join(order.delivery, delivery).fetchJoin()
-                .offset(offset)
-                .limit(limit)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetch();
+
+        JPAQuery<Long> countQuery = queryFactory
+                .select(order.count())
+                .from(order);
+
+        return PageableExecutionUtils.getPage(content, pageable,countQuery::fetchOne);
     }
 
     private BooleanExpression statusEq(OrderStatus statusCond) {
