@@ -37,7 +37,7 @@ public class ItemController {
         if (form.getPrice() != null && form.getStockQuantity() != null) {
             int resultPrice = form.getPrice() * form.getStockQuantity();
             if (resultPrice < 10_000) {
-                bindingResult.reject("totalPriceMin", new Object[]{10_000, resultPrice}, "전체 가격은 {0}원 이상이어야 합니다. 현재 값 = {1}");
+                bindingResult.reject("totalPriceMin", new Object[]{10_000, resultPrice}, null);
             }
         }
 
