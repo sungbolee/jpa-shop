@@ -1,8 +1,10 @@
 package study.jpashop.web.item;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import study.jpashop.api.v1.item.ItemDto;
 import study.jpashop.domain.item.Book;
@@ -10,8 +12,10 @@ import study.jpashop.domain.item.Item;
 import study.jpashop.domain.item.ItemRepository;
 import study.jpashop.service.item.ItemService;
 
+import javax.validation.Valid;
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/items")
@@ -22,12 +26,26 @@ public class ItemController {
 
     @GetMapping("/add")
     public String addForm(Model model) {
-        model.addAttribute("form", new BookForm());
+        model.addAttribute("book", new BookForm());
         return "items/createItemForm";
     }
 
     @PostMapping("/add")
-    public String add(BookForm form) {
+    public String add(@Valid @ModelAttribute("book") BookForm form, BindingResult bindingResult) {
+
+        //특정 필드가 아닌 복합 룰 검증
+        if (form.getPrice() != null && form.getStockQuantity() != null) {
+            int resultPrice = form.getPrice() * form.getStockQuantity();
+            if (resultPrice < 10_000) {
+                bindingResult.reject("totalPriceMin", new Object[]{10_000, resultPrice}, "전체 가격은 {0}원 이상이어야 합니다. 현재 값 = {1}");
+            }
+        }
+
+        //검증에 실패하면 다시 입력 폼으로
+        if (bindingResult.hasErrors()) {
+            log.info("errors={} ", bindingResult);
+            return "items/createItemForm";
+        }
 
         Book book = new Book();
         book.setName(form.getName());
