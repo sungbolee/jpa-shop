@@ -37,6 +37,8 @@ public class UserController {
         Address address = new Address(form.getCity(), form.getStreet(), form.getZipcode());
 
         User user = new User();
+        user.setLoginId(form.getLoginId());
+        user.setPassword(form.getPassword());
         user.setName(form.getName());
         user.setAddress(address);
 
