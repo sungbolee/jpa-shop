@@ -1,7 +1,8 @@
-package study.jpashop.web.interceptor;
+package study.jpashop.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
+import study.jpashop.utils.SessionConst;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +20,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 
         HttpSession session = request.getSession();
 
-        if (session == null || session.getAttribute("loginUser") == null) {
+        if (session == null || session.getAttribute(SessionConst.LOGIN_USER) == null) {
             log.info("미인증 사용자 요청");
             //로그인으로 redirect
             response.sendRedirect("/login?redirectURL=" + requestURI);

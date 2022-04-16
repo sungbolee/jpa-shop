@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import study.jpashop.domain.user.User;
 import study.jpashop.service.login.LoginService;
+import study.jpashop.utils.SessionConst;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -47,7 +48,7 @@ public class LoginController {
         //세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성
         HttpSession session = request.getSession();
         //세션에 로그인 회원 정보 보관
-        session.setAttribute("loginUser", loginUser);
+        session.setAttribute(SessionConst.LOGIN_USER, loginUser);
 
         return "redirect:" + redirectURL;
     }
