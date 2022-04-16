@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import study.jpashop.domain.BaseEntity;
 import study.jpashop.domain.code.DeliveryStatus;
 import study.jpashop.domain.code.OrderStatus;
 import study.jpashop.domain.delivery.Delivery;
@@ -23,7 +24,7 @@ import static javax.persistence.FetchType.*;
 @Table(name = "orders")
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Order {
+public class Order extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")

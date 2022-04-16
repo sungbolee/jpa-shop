@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import study.jpashop.domain.BaseEntity;
 import study.jpashop.exception.NotEnoughStockException;
 
 import javax.persistence.*;
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @DiscriminatorColumn(name = "dtype")
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public abstract class Item {
+public abstract class Item extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_id")
