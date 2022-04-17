@@ -3,6 +3,7 @@ package study.jpashop.web.item;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.format.annotation.NumberFormat;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
@@ -18,6 +19,7 @@ public class BookForm {
 
     @NotNull
     @Range(min = 1_000, max = 1_000_000)
+    @NumberFormat(pattern = "###,###")
     private Integer price;
 
     @NotNull
