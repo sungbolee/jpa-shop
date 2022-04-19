@@ -4,10 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.NumberFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Getter @Setter
 public class BookForm {
@@ -28,4 +30,7 @@ public class BookForm {
 
     private String author;
     private String isbn;
+
+    private List<MultipartFile> imageFiles;
+    private MultipartFile attachFile;
 }

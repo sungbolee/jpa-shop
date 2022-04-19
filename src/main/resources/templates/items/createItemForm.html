@@ -20,7 +20,7 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader"/>
 
-    <form th:action="@{/items/add}" th:object="${book}" method="post">
+    <form th:action="@{/items/add}" th:object="${book}" method="post" enctype="multipart/form-data">
 
         <div th:if="${#fields.hasGlobalErrors()}">
             <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>
@@ -58,6 +58,10 @@
             <label th:for="isbn">ISBN</label>
             <input type="text" th:field="*{isbn}" class="form-control" placeholder="ISBN을 입력하세요">
         </div>
+        <ul>
+            <li>첨부파일<input type="file" name="attachFile" ></li>
+            <li>이미지 파일들<input type="file" multiple="multiple" name="imageFiles" ></li>
+        </ul>
         <button type="submit" class="btn btn-primary" th:text="#{button.save}">Submit</button>
     </form>
     <br/>

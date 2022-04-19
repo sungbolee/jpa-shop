@@ -7,12 +7,15 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import study.jpashop.api.v1.item.ItemDto;
+import study.jpashop.domain.FileStore;
+import study.jpashop.domain.UploadFile;
 import study.jpashop.domain.item.Book;
 import study.jpashop.domain.item.Item;
 import study.jpashop.domain.item.ItemRepository;
 import study.jpashop.service.item.ItemService;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @Slf4j
@@ -23,6 +26,7 @@ public class ItemController {
 
     private final ItemService itemService;
     private final ItemRepository itemRepository;
+    private final FileStore fileStore;
 
     @GetMapping("/add")
     public String addForm(Model model) {
@@ -31,7 +35,7 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    public String add(@Valid @ModelAttribute("book") BookForm form, BindingResult bindingResult) {
+    public String add(@Valid @ModelAttribute("book") BookForm form, BindingResult bindingResult) throws IOException {
 
         //특정 필드가 아닌 복합 룰 검증
         if (form.getPrice() != null && form.getStockQuantity() != null) {
@@ -47,12 +51,17 @@ public class ItemController {
             return "items/createItemForm";
         }
 
+        UploadFile attachFile = fileStore.storeFile(form.getAttachFile());
+        List<UploadFile> storeImageFiles = fileStore.storeFiles(form.getImageFiles());
+
         Book book = new Book();
         book.setName(form.getName());
         book.setPrice(form.getPrice());
         book.setStockQuantity(form.getStockQuantity());
         book.setAuthor(form.getAuthor());
         book.setIsbn(form.getIsbn());
+        book.setAttachFile(attachFile);
+        book.setImageFiles(storeImageFiles);
 
         itemService.saveItem(book);
         return "redirect:/";

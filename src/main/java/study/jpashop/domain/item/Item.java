@@ -5,9 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import study.jpashop.domain.BaseEntity;
+import study.jpashop.domain.UploadFile;
 import study.jpashop.exception.NotEnoughStockException;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -23,6 +25,13 @@ public abstract class Item extends BaseEntity {
     private String name;
     private int price;
     private int stockQuantity;
+
+    @Embedded
+    private UploadFile attachFile;
+
+    @ElementCollection
+    @CollectionTable(name = "image_files", joinColumns = @JoinColumn(name = "item_id"), foreignKey = @ForeignKey(name = "image_files_items_fk"))
+    private List<UploadFile> imageFiles;
 
     //==비즈니스 로직==//
     /**
