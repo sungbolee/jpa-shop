@@ -19,6 +19,11 @@ spring:
   messages:
     basename: messages,errors
 
+  servlet:
+    multipart:
+      max-file-size: 1MB
+      max-request-size: 10MB
+
 logging.level:
   org.hibernate.SQL: debug
 

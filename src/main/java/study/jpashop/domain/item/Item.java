@@ -30,7 +30,7 @@ public abstract class Item extends BaseEntity {
     private UploadFile attachFile;
 
     @ElementCollection
-    @CollectionTable(name = "image_files", joinColumns = @JoinColumn(name = "item_id"), foreignKey = @ForeignKey(name = "image_files_items_fk"))
+    @CollectionTable(name = "image_files", joinColumns = @JoinColumn(name = "item_id"))
     private List<UploadFile> imageFiles;
 
     //==비즈니스 로직==//
